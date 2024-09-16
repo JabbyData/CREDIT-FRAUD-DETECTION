@@ -1,11 +1,36 @@
-The resources for this dataset can be found at https://www.openml.org/d/1597
+Hello and Welcome on my cloud based Machine Learning project. I will present to you my work in depth so that you can have an overview on how to use cloud for your future machine learning projects.
+My project deals with building a CREDIT CARD DEFAULT PREDICTOR using real world data. 
 
-Author: Andrea Dal Pozzolo, Olivier Caelen and Gianluca Bontempi  
-Source: Credit card fraud detection - Date 25th of June 2015  
-Please cite: Andrea Dal Pozzolo, Olivier Caelen, Reid A. Johnson and Gianluca Bontempi. Calibrating Probability with Undersampling for Unbalanced Classification. In Symposium on Computational Intelligence and Data Mining (CIDM), IEEE, 2015  
+To be more precise, I will dive into the following steps of my work : 
+1) Problem Definition
+2) Data Collection
+3) Data Cloud Storage
+4) Model Training
+5) Model Deployment
 
-The datasets contains transactions made by credit cards in September 2013 by european cardholders. This dataset present transactions that occurred in two days, where we have 492 frauds out of 284,807 transactions. The dataset is highly unbalanced, the positive class (frauds) account for 0.172% of all transactions.
+I hope this project will be useful, feel free to contact me at antonin.data@gmail.com for further information.
 
-It contains only numerical input variables which are the result of a PCA transformation. Unfortunately, due to confidentiality issues, we cannot provide the original features and more background information about the data. Features V1, V2, ... V28 are the principal components obtained with PCA, the only features which have not been transformed with PCA are 'Time' and 'Amount'. Feature 'Time' contains the seconds elapsed between each transaction and the first transaction in the dataset. The feature 'Amount' is the transaction Amount, this feature can be used for example-dependant cost-senstive learning. Feature 'Class' is the response variable and it takes value 1 in case of fraud and 0 otherwise.
+## 1) Problem Definition
 
-The dataset has been collected and analysed during a research collaboration of Worldline and the Machine Learning Group (mlg.ulb.ac.be) of ULB (Université Libre de Bruxelles) on big data mining and fraud detection. More details on current and past projects on related topics are available on http://mlg.ulb.ac.be/BruFence and http://mlg.ulb.ac.be/ARTML.
+- Store data locally -> cloud 
+- Perform local analysis -> cloud
+
+## 2) Data Collection
+To access real world data related to financial crimes, I decided to use a publicly available dataset from [Kaggle](https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022). 
+My criterias for choosing a dataset on this platform are the following :
+
+- The file is relatively large
+- The data is recent
+- Sources are listed and verified
+- The platform indicates the level of usability of the provided dataset
+
+To do so, I used the Kaggle Python API, you can find the detail of my search / local load of the data inside the notebook "1.kaggle_connection.ipynb"
+
+## 3) Data Cloud Storage
+Instead of performing a local model building / training, I wanted to tranfer it to cloud services. [Snowflake](https://www.snowflake.com/fr/) is a superb cloud provider that helped me to do so.
+
+First of all, I created the **data management environment** (roles + objects). Details are available in the SQL file "0-Setup.sql".
+
+Then, I **loaded the data** on Snowflake using the Snowpark Python API (details available in the file "2-Data_ingestion.ipynb").
+
+**Please insert your credentials in the "connection.json" file** to make it work.
