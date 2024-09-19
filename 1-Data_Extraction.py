@@ -60,7 +60,7 @@ def download_dataset_file(dataset_ref,file_name,force):
 
 
 def load_to_sf(file_to_load):
-    """ Loads the csv file on Snowflake 
+    """ Loads the csv file in a stage on Snowflake
     Input : 
         - file_to_load (string) : name of the csv file to load
     Output : 
@@ -69,20 +69,35 @@ def load_to_sf(file_to_load):
     connection_parameters = json.load(open('connection.json'))
     session = Session.builder.configs(connection_parameters).create()
 
-    df = pd.read_csv('data/' + file_to_load)
-    snowpark_df = session.create_dataframe(df)
-
-    table_name = 'FRAUD_DATA'
-    snowpark_df.write.save_as_table(table_name, mode='append')
+    session.file.put(local_file_name='data/'+file_to_load,
+                     stage_location='@FRAUD_DETECT_DB.FRAUD_DETECT_SM.INTERNAL_FRAUD_STG',
+                     source_compression='NONE',
+                     overwrite=True)
 
     session.close()
 
     os.remove('data/' + file_to_load)
 
-    print("Loading Finished, please check results on Snowflake")
+    print("Loading on @FRAUD_DETECT_DB.FRAUD_DETECT_SM.INTERNAL_FRAUD_STG , please check results on Snowflake")
+
+
+def load_to_table(file_to_load):
+    connection_parameters = json.load(open('connection.json'))
+    session = Session.builder.configs(connection_parameters).create()
+    session.sql(f"""
+        COPY INTO FRAUD_DETECT_DB.FRAUD_DETECT_SM.FRAUD_DATA
+        FROM @FRAUD_DETECT_DB.FRAUD_DETECT_SM.INTERNAL_FRAUD_STG/{file_to_load}
+        FILE_FORMAT = (FORMAT_NAME = 'CSVFORMAT')
+        ON_ERROR = 'CONTINUE';
+    """).collect()
+
+    session.close()
+
+    print(f"Ingestion into FRAUD_DETECT_DB.FRAUD_DETECT_SM.INTERNAL_FRAUD_STG/{file_to_load} finished, please check results on Snowflake")
 
 
 if __name__ == "__main__":
     listing_datasets('fraud',100000,300000,0.7,2022)
     download_dataset_file('sgpjesus/bank-account-fraud-dataset-neurips-2022','Base.csv',True)
     load_to_sf('Base.csv')
+    load_to_table('Base.csv')
