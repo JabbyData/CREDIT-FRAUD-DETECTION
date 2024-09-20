@@ -1,6 +1,5 @@
 """ Module collecting data on Kaggle and Loading it on Snowflake """
 from kaggle.api.kaggle_api_extended import KaggleApi
-import pandas as pdpip
 import os
 import zipfile
 import json
