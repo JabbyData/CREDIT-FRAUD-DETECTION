@@ -53,6 +53,6 @@ In order to perform to train the classification model, I first needed to clean t
 
 ### Model Building + Training
 
-Since we want to predict binary response and that oversampling balances the dataset, I thought using a logistic regression as a first model could be a good start. Using the cholesky transformation option provided by [Scikit-Learn](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html), the local training was not very long (only a few seconds) and will be useful to compare to a cloud based solution.
+Since we want to predict binary response and that oversampling balances the dataset, I thought using a logistic regression as a first model could be a good start. Using the cholesky transformation option (much more samples than features) provided by [Scikit-Learn](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html), the local training was short (only a few seconds) and will be useful to compare to a cloud based solution.
 
-Compared to a basic classifier (one that would always detect a fraud), this first model is more precise (79% vs 50%) and has approximately the same training precision as the test one (not overfitting the data) : it seems to be a good start !
+Compared to a basic classifier (one that would always detect a fraud), this first model is much more precise (79% vs 50%) and has approximately the same training precision as the test one (hence not overfitting the data) : it seems to be a good start !
