@@ -38,4 +38,4 @@ Then, I **loaded the data** on Snowflake using the Snowpark Python API (details 
 **Please insert your credentials in the "connection.json" file** to make it work.
 
 ### Security 
-To ensure project roles / grants distribution, Snowflake offers a superb management system on which administrators can dispatch responsibilities efficiently. In that way, the file [0-Setup.sql](https://github.com/JabbyData/CREDIT-FRAUD-DETECTION/blob/main/0-Setup.sql) describes how I sat up my cloud environment , creating a specific role to achieve the project tasks.
+To ensure project roles / grants distribution, Snowflake offers a superb management system on which administrators can dispatch responsibilities efficiently. In that way, the file [0-Setup.sql](https://github.com/JabbyData/CREDIT-FRAUD-DETECTION/blob/main/0-Setup.sql) describes how I have set up my cloud environment , creating a specific role to achieve the project tasks.
