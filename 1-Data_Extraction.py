@@ -104,5 +104,5 @@ def load_to_table(file_to_load):
 if __name__ == "__main__":
     listing_datasets('fraud',100000,300000,0.7,2022)
     download_dataset_file('sgpjesus/bank-account-fraud-dataset-neurips-2022','Base.csv',True)
-    load_to_sf('Base.csv')
-    load_to_table('Base.csv')
+    #load_to_sf('Base.csv')
+    #load_to_table('Base.csv')
