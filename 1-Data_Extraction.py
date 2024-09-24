@@ -81,6 +81,12 @@ def load_to_sf(file_to_load):
 
 
 def load_to_table(file_to_load):
+    """ Loads a staged file to a Snowflake Table
+    Input : 
+        - file_to_load (string) : name of the csv staged file to save as a table
+    Output : 
+        - None
+    """
     connection_parameters = json.load(open('connection.json'))
     session = Session.builder.configs(connection_parameters).create()
     session.sql(f"""
