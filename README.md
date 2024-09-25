@@ -48,11 +48,19 @@ To ensure project roles / grants distribution, Snowflake offers a superb managem
 ### Data Cleaning
 
 In order to perform to train the classification model, I first needed to clean the data (such treating missing values, imbalances or highly correlated features): that's why the two files [2-Data_CLeaning.ipynb](https://github.com/JabbyData/CREDIT-FRAUD-DETECTION/blob/main/2-Data_CLeaning.ipynb) (local treatment) and [2-SF_Data_Cleaning.ipynb](https://github.com/JabbyData/CREDIT-FRAUD-DETECTION/blob/main/2-SF_Data_Cleaning.ipynb) (equivalent in the cloud) are about.
+In particular, I am relying on the **fireducks** library to accelerate data treatment (multi-threads usage) compared to the classic pandas library.
 
-**Please note I have not find yet how to conduct the correlation analysis on Snowflake Cloud, I will try to look further in possible ways to do so in the upcoming weeks**
+**Please note I have not find yet a efficient function to automatically treat highly correlated features using Snowpark, I will try to look further in possible ways to do so in the upcoming weeks**
 
 ### Model Building + Training
 
 Since we want to predict binary response and that oversampling balances the dataset, I thought using a logistic regression as a first model could be a good start. Using the cholesky transformation option (much more samples than features) provided by [Scikit-Learn](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html), the local training was short (only a few seconds) and will be useful to compare to a cloud based solution.
 
-Compared to a basic classifier (one that would always detect a fraud), this first model is much more precise (79% vs 50%) and has approximately the same training precision as the test one (hence not overfitting the data) : it seems to be a good start !
+#### Local Training
+
+Compared to a basic classifier (one that would always detect a fraud), this first model is much more precise (79% vs 50%) and has approximately the same training precision as the test one (hence not overfitting the data) : it seems to be a good start ! (details available in [3-Model_Training.ipynb](https://github.com/JabbyData/CREDIT-FRAUD-DETECTION/blob/main/3-Model_Training.ipynb))
+
+#### Cloud Training
+
+The file [3-Model_Training.ipynb](https://github.com/JabbyData/CREDIT-FRAUD-DETECTION/blob/main/3-SF_Model_Training.ipynb) describes how to reproduces the local training on a Snowflake environment.
+
