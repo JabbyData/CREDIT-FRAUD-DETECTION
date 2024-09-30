@@ -17,7 +17,11 @@ In 2022, global online payment fraud losses reached US$41billion, an altering fi
 This project deals applying diverse machine learning techniques to build and train models on real world data. 
 One of the main challenge of today's companies is to deal with huge amount of data, hence this project also focuses on using cloud technologies to manage efficiently these information.
 
-I am focusing in particular on two business metrics : **precision** and **recall** to measure the efficiency of the model.
+I am focusing in particular on two business metrics : 
+    - **accuracy**, which measure how well the model performs in average on the dataset.
+    - **precision**, which measures at which level model's predictions turn out to be well classified.
+    - **recall**, which measures how well the model encompasses correct classifications.
+    - **f1-measure**, an harmonic mean between precision and recall to estimates the global performance of the model.
 
 ## 2) Data Collection
 To access **real world data** related to financial crimes, I decided to use a publicly available dataset from [Kaggle](https://www.kaggle.com/datasets/sgpjesus/bank-account-fraud-dataset-neurips-2022). 
@@ -58,9 +62,11 @@ Since we want to predict binary response and that oversampling balances the data
 
 #### Local Training
 
-Compared to a basic classifier (one that would always detect a fraud), this first model is much more precise (79% vs 50%) and has approximately the same training precision as the test one (hence not overfitting the data) : it seems to be a good start ! (details available in [3-Model_Training.ipynb](https://github.com/JabbyData/CREDIT-FRAUD-DETECTION/blob/main/3-Model_Training.ipynb))
+Since we are dealing with a binary classification problem, I am first trying to build a Logistic Regression model. Details are available in [3-Model_Training.ipynb](https://github.com/JabbyData/CREDIT-FRAUD-DETECTION/blob/main/3-Model_Training.ipynb).
+
+Compared to a basic classifier (one that would always detect a fraud), this first model is much more precise (79.5% vs 50%) and has approximately the same training precision as the test one (hence not overfitting the data) : it seems to be a good start !
 
 #### Cloud Training
 
-The file [3-Model_Training.ipynb](https://github.com/JabbyData/CREDIT-FRAUD-DETECTION/blob/main/3-SF_Model_Training.ipynb) describes how to reproduces the local training on a Snowflake environment.
+The next step is to scale the local model in a cloud Environment. To do so, the file [3-Model_Training.ipynb](https://github.com/JabbyData/CREDIT-FRAUD-DETECTION/blob/main/3-SF_Model_Training.ipynb) describes how to reproduces the local training on a Snowflake environment. In particular I am building a Pipeline to orchestrate preprocessing operations to automate as much as possible the training of the model.
 
